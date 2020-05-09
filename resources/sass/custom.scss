@@ -1,0 +1,12 @@
+nav.navbar-laravel {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.router-link-exact-active {
+    color: #ffffff !important;
+    background-color: #007bff !important;
+    i {
+        color: #fff;
+    }
+}

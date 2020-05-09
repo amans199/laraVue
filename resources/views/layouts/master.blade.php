@@ -7,8 +7,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"">
+    <meta http-equiv=" x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>AdminLTE 3 | Starter</title>
@@ -145,6 +145,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
+                        <li class="nav-item has-treeview">
+                            <a from="#" class="nav-link d-flex align-items-center">
+                                <i class="nav-icon fas fa-cog mr-2 green"></i>
+                                <p>
+                                    Management
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <router-link to="/users" class="nav-link">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>Users</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <router-link to="/profile" class="nav-link  d-flex align-items-center">
                                 <i class="nav-icon fas fa-user mr-2 orange"></i>
@@ -171,38 +188,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </form>
                         </li>
 
-                        <!-- <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Starter Pages
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Active Page</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Inactive Page</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li> -->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
