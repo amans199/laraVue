@@ -15,8 +15,8 @@ Vue.use(BootstrapVue)
 // Vue.use(AlertError.name, AlertError)
 
 // // install vee-validator 
-import { ValidationProvider } from 'vee-validate';
-Vue.component('ValidationProvider', ValidationProvider);
+// import { ValidationProvider } from 'vee-validate';
+// Vue.component('ValidationProvider', ValidationProvider);
 
 
 // install VueRouter
