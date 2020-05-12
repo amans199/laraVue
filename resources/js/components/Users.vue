@@ -70,6 +70,7 @@
                     <div class="form-group">
                       <input v-model="form.photo" type="text" name="photo" class="form-control" />
                     </div>
+                    <!-- <alert-errors :form="form">There were some problems with your input.</alert-errors> -->
                   </form>
                 </b-modal>
               </div>
@@ -84,13 +85,15 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>Type</th>
+                  <th>Registered at</th>
                   <th>Modify</th>
                 </tr>
                 <tr v-for="user in users" :key="user.id">
                   <td>{{user.id}}</td>
                   <td>{{user.name}}</td>
                   <td>{{user.email}}</td>
-                  <td>{{user.type}}</td>
+                  <td>{{user.type | UpText}}</td>
+                  <td>{{user.created_at | myDate}}</td>
                   <td>
                     <a href="#">
                       <i class="fas fa-edit mr-2"></i>
@@ -143,6 +146,14 @@ export default {
     };
   },
   methods: {
+    resetModal() {
+      this.form.name = "";
+      this.form.email = "";
+      this.form.password = "";
+      this.form.type = "";
+      this.form.bio = "";
+      this.form.photo = "";
+    },
     handleOk(bvModalEvt) {
       // Prevent modal from closing
       bvModalEvt.preventDefault();
@@ -150,29 +161,41 @@ export default {
       this.createUser();
       this.fetchUsers();
     },
+
     createUser() {
-      this.form.post("api/user");
+      this.$Progress.start();
+      this.form
+        .post("api/user")
+        .then(({ data }) => {
+          this.$nextTick(() => {
+            this.$bvModal.hide("modal-1");
+            this.resetModal();
+            // todo : revise Custom events on vue docs
+            this.fetchUsers();
+            Toast.fire({
+              icon: "success",
+              title: "User Created successfully"
+            });
+          });
+        })
+        .finally(() => {
+          this.$Progress.finish();
+        });
       // Hide the modal manually
-      this.$nextTick(() => {
-        this.$bvModal.hide("modal-1");
-      });
+      // todo make the model doesn't hide if there are errors
+
       // this.users.push(this.form);
       // let newUser = {'id' : };
       // this.users = [...this.users, this.form];
       // this.users = [...this.users, user]
-      this.fetchUsers();
     },
-
     fetchUsers() {
       axios
         .get("api/user")
         .then(reponse => {
-          this.users = reponse.data;
-          if (this.users.data.length) {
-            setTimeout(() => {
-              selectedTripId = this.trips.data[0].id;
-              this.selectedTripChangedHandler(selectedTripId);
-            }, 0);
+          this.users = reponse.data.data;
+          if (this.users.length) {
+            setTimeout(() => {}, 0);
           }
         })
         .catch(err => console.log(err))

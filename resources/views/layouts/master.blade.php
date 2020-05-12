@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
-                        <li class="nav-item has-treeview">
+                        <li class="nav-item has-treeview menu-open">
                             <a from="#" class="nav-link d-flex align-items-center">
                                 <i class="nav-icon fas fa-cog mr-2 green"></i>
                                 <p>
@@ -156,7 +156,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <router-link to="/users" class="nav-link">
-                                        <i class="fas fa-users nav-icon"></i>
+                                        <i class="fas fa-users nav-icon purple"></i>
                                         <p>Users</p>
                                     </router-link>
                                 </li>
@@ -209,6 +209,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="content">
                 <div class="container-fluid">
                     <router-view></router-view>
+                    <vue-progress-bar></vue-progress-bar>
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content -->
