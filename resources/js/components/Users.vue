@@ -8,12 +8,18 @@
 
             <div class="card-tools d-flex flex-row">
               <div>
-                <b-button variant="outline-primary" v-b-modal.modal-1>
-                  <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> Create
+                <!-- <b-button variant="outline-primary" v-b-modal.modal-1> -->
+                <b-button variant="outline-primary" @click="newModal">
+                  <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> Add New User
                 </b-button>
 
-                <b-modal id="modal-1" centered title="BootstrapVue" @ok="handleOk">
-                  <form ref="form" @submit.stop.prevent="createUser">
+                <b-modal
+                  id="modal-1"
+                  centered
+                  :title="editmode ? 'Edit user' : 'Add New user'"
+                  @ok="handleOk"
+                >
+                  <form ref="form" @submit.stop.prevent="editmode ? updateUser() : createUser()">
                     <div class="form-group">
                       <div class="form-group">
                         <input
@@ -33,6 +39,7 @@
                           v-model="form.email"
                           type="text"
                           name="email"
+                          placeholder="Email"
                           class="form-control"
                           :class="{ 'is-invalid': form.errors.has('email') }"
                         />
@@ -45,6 +52,7 @@
                           v-model="form.password"
                           type="password"
                           name="password"
+                          placeholder="Password"
                           class="form-control"
                           :class="{ 'is-invalid': form.errors.has('password') }"
                         />
@@ -53,9 +61,10 @@
                     </div>
                     <div class="form-group">
                       <b-form-select v-model="form.type" name="type" class="mb-3">
-                        <b-form-select-option :value="null">Please select an option</b-form-select-option>
-                        <b-form-select-option value="a">Option A</b-form-select-option>
-                        <b-form-select-option value="b" disabled>Option B (disabled)</b-form-select-option>
+                        <b-form-select-option :value="null">Please select a Type</b-form-select-option>
+                        <b-form-select-option value="author">Author</b-form-select-option>
+                        <b-form-select-option value="contibutor">Contibutor</b-form-select-option>
+                        <b-form-select-option value="subscriber">Subscriber</b-form-select-option>
                       </b-form-select>
                     </div>
                     <div class="form-group">
@@ -64,14 +73,44 @@
                         type="text"
                         name="bio"
                         class="form-control"
-                        placeholder="bio"
+                        placeholder="Bio"
                       />
                     </div>
                     <div class="form-group">
-                      <input v-model="form.photo" type="text" name="photo" class="form-control" />
+                      <input
+                        v-model="form.photo"
+                        type="text"
+                        placeholder="Photo"
+                        name="photo"
+                        class="form-control"
+                      />
                     </div>
                     <!-- <alert-errors :form="form">There were some problems with your input.</alert-errors> -->
                   </form>
+                  <!-- <template v-slot:modal-footer>
+                    <div class="w-100">
+                      <b-button
+                        variant="secondary"
+                        data-dismiss="modal-1"
+                        size="md"
+                        class="float-right"
+                      >Cancel</b-button>
+                      <b-button
+                        variant="success"
+                        size="md"
+                        type="submit"
+                        v-show="!editmode"
+                        class="float-right"
+                      >Create</b-button>
+                      <b-button
+                        variant="primary"
+                        size="md"
+                        type="submit"
+                        class="float-right"
+                        v-show="editmode"
+                      >Update</b-button>
+                    </div>
+                  </template>-->
                 </b-modal>
               </div>
             </div>
@@ -95,10 +134,10 @@
                   <td>{{user.type | UpText}}</td>
                   <td>{{user.created_at | myDate}}</td>
                   <td>
-                    <a href="#">
+                    <a href="#" @click="editModal(user)">
                       <i class="fas fa-edit mr-2"></i>
                     </a>
-                    <a href="#">
+                    <a href="#" @click="deleteUser(user.id)">
                       <i class="fa fa-trash red" aria-hidden="true"></i>
                     </a>
                   </td>
@@ -117,12 +156,6 @@
 </style>
 
 <script>
-// import { extend } from "vee-validate";
-// import { required } from "vee-validate/dist/rules";
-// extend("required", {
-//   ...required,
-//   message: "This field is required"
-// });
 import { Form, HasError, AlertError } from "vform";
 
 Vue.component(HasError.name, HasError);
@@ -130,15 +163,15 @@ Vue.component(AlertError.name, AlertError);
 export default {
   data() {
     return {
-      names: {
-        pagaName: "Dashboard"
-      },
+      editmode: false,
       users: {},
+      userToEditID: "",
       form: new Form({
+        id: "",
         name: "",
         email: "",
         password: "",
-        type: "",
+        type: null,
         bio: "",
         photo: ""
       }),
@@ -146,30 +179,46 @@ export default {
     };
   },
   methods: {
-    resetModal() {
-      this.form.name = "";
-      this.form.email = "";
-      this.form.password = "";
-      this.form.type = "";
-      this.form.bio = "";
-      this.form.photo = "";
+    updateUser() {
+      this.$Progress.start();
+      this.form
+        .put("api/user/" + this.form.id)
+        .then(() => {
+          //success
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
+    editModal(user) {
+      this.editmode = true;
+      this.form.clear();
+      this.form.reset();
+      this.$bvModal.show("modal-1");
+      this.form.fill(user);
+      this.userToEditID = user.id;
+      console.log("this.form.id" + this.form.id);
+      console.log("this.userToEditID" + this.userToEditID);
+    },
+    newModal() {
+      this.editmode = false;
+      this.form.clear();
+      this.form.reset();
+      this.$bvModal.show("modal-1");
     },
     handleOk(bvModalEvt) {
-      // Prevent modal from closing
       bvModalEvt.preventDefault();
-      // Trigger submit handler
       this.createUser();
       this.fetchUsers();
     },
-
     createUser() {
-      this.$Progress.start();
       this.form
         .post("api/user")
         .then(({ data }) => {
           this.$nextTick(() => {
+            this.$Progress.start();
             this.$bvModal.hide("modal-1");
-            this.resetModal();
+            this.form.reset();
             // todo : revise Custom events on vue docs
             this.fetchUsers();
             Toast.fire({
@@ -181,13 +230,6 @@ export default {
         .finally(() => {
           this.$Progress.finish();
         });
-      // Hide the modal manually
-      // todo make the model doesn't hide if there are errors
-
-      // this.users.push(this.form);
-      // let newUser = {'id' : };
-      // this.users = [...this.users, this.form];
-      // this.users = [...this.users, user]
     },
     fetchUsers() {
       axios
@@ -200,6 +242,40 @@ export default {
         })
         .catch(err => console.log(err))
         .finally(() => (this.loading = false));
+    },
+    deleteUser(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        reverseButtons: true
+      }).then(result => {
+        if (result.value) {
+          this.form
+            .delete("api/user/" + id)
+            .then(() => {
+              this.$Progress.start();
+
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+
+              this.$nextTick(() => {
+                this.fetchUsers();
+              });
+            })
+            .catch(err => {
+              Swal.fire("Failed!", "There was something wrong", "warning");
+              this.$Progress.fail();
+            })
+            .finally(() => {
+              this.loading = false;
+              this.$Progress.finish();
+            });
+        }
+      });
     }
   },
   // created() {
