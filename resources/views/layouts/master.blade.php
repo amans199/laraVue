@@ -171,6 +171,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link to="/developer" class="nav-link  d-flex align-items-center">
+                                <i class="nav-icon fas fa-cogs mr-2 "></i>
+                                <p>
+                                    Developer
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
                             <!-- <router-link to="#" class="nav-link d-flex align-items-center">
                                 <i class="nav-icon fas fa-power-off mr-2"></i>
                                 <p>

@@ -19,7 +19,8 @@
                   :title="editmode ? 'Edit user' : 'Add New user'"
                   @ok="handleOk"
                 >
-                  <form ref="form" @submit.stop.prevent="editmode ? updateUser() : createUser()">
+                  <!-- <form ref="form" @submit.prevent="editmode ? updateUser() : createUser()"> -->
+                  <form ref="form">
                     <div class="form-group">
                       <div class="form-group">
                         <input
@@ -87,20 +88,15 @@
                     </div>
                     <!-- <alert-errors :form="form">There were some problems with your input.</alert-errors> -->
                   </form>
-                  <!-- <template v-slot:modal-footer>
+                  <template v-slot:modal-footer="{ ok, cancel }">
                     <div class="w-100">
-                      <b-button
-                        variant="secondary"
-                        data-dismiss="modal-1"
-                        size="md"
-                        class="float-right"
-                      >Cancel</b-button>
                       <b-button
                         variant="success"
                         size="md"
                         type="submit"
                         v-show="!editmode"
                         class="float-right"
+                        @click="createUser()"
                       >Create</b-button>
                       <b-button
                         variant="primary"
@@ -108,9 +104,17 @@
                         type="submit"
                         class="float-right"
                         v-show="editmode"
+                        @click="updateUser()"
                       >Update</b-button>
+                      <b-button
+                        variant="secondary"
+                        data-dismiss="modal-1"
+                        size="md"
+                        class="float-right mr-2"
+                        @click="cancel()"
+                      >Cancel</b-button>
                     </div>
-                  </template>-->
+                  </template>
                 </b-modal>
               </div>
             </div>
@@ -153,6 +157,12 @@
   </div>
 </template>
 <style  lang="scss">
+.modal-open {
+  padding-right: 0px !important;
+  .modal {
+    padding-right: 0px !important;
+  }
+}
 </style>
 
 <script>
@@ -165,7 +175,7 @@ export default {
     return {
       editmode: false,
       users: {},
-      userToEditID: "",
+      // userToEditID: "",
       form: new Form({
         id: "",
         name: "",
@@ -185,6 +195,13 @@ export default {
         .put("api/user/" + this.form.id)
         .then(() => {
           //success
+          this.$bvModal.hide("modal-1");
+          this.$Progress.finish();
+          this.fetchUsers();
+          Toast.fire({
+            icon: "success",
+            title: this.form.name + " 's been Updated successfully"
+          });
         })
         .catch(() => {
           this.$Progress.fail();
@@ -196,9 +213,9 @@ export default {
       this.form.reset();
       this.$bvModal.show("modal-1");
       this.form.fill(user);
-      this.userToEditID = user.id;
-      console.log("this.form.id" + this.form.id);
-      console.log("this.userToEditID" + this.userToEditID);
+      // this.userToEditID = user.id;
+      // console.log("this.form.id" + this.form.id);
+      // console.log("this.userToEditID" + this.userToEditID);
     },
     newModal() {
       this.editmode = false;
