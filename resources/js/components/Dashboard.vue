@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       names: {
-        pagaName: "Dashboard"
+        pagaName: "Dashboard Test"
       }
     };
   },
