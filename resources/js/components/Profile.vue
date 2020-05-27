@@ -198,17 +198,11 @@
 
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" /> I agree to the
-                            <a href="#">terms and conditions</a>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button
+                          type="submit"
+                          @click.prevent="updateInfo"
+                          class="btn btn-danger"
+                        >Update</button>
                       </div>
                     </div>
                   </form>
@@ -251,7 +245,15 @@ export default {
     };
   },
   methods: {
+    updateInfo() {
+      // we dont put the ID here because any one can see it and change it through the developer tools
+      this.form
+        .put("api/profile/")
+        .then(() => {})
+        .catch(() => {});
+    },
     updateProfile(e) {
+      // prepare file upload with Base64
       // console.log("file uploaded");
       let file = e.target.files[0],
         reader = new FileReader();
