@@ -43,7 +43,8 @@
               <div class="box-body box-profile">
                 <img
                   class="profile-user-img img-responsive img-circle"
-                  src="/img/user4-128x128.jpg"
+                  id="profile-user-img"
+                  :src="getProfilePhoto(this.profilePhoto)"
                   alt="User profile picture"
                 />
 
@@ -135,7 +136,7 @@
                 <div class="tab-pane active" id="settings">
                   <form class="form-horizontal">
                     <div class="form-group">
-                      <label for="inputName" class="col-sm-2 control-label">Name</label>
+                      <label for="inputName" class="col control-label">Name</label>
 
                       <div class="col-sm-10">
                         <input
@@ -148,7 +149,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                      <label for="inputEmail" class="col control-label">Email</label>
 
                       <div class="col-sm-10">
                         <input
@@ -161,7 +162,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="photo" class="col-sm-2 control-label">Profile photo</label>
+                      <label for="photo" class="col control-label">Profile photo</label>
 
                       <div class="col-sm-10">
                         <b-form-file
@@ -173,7 +174,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="BIO" class="col-sm-2 control-label">BIO</label>
+                      <label for="BIO" class="col control-label">BIO</label>
 
                       <div class="col-sm-10">
                         <textarea
@@ -187,8 +188,8 @@
                     <div class="form-group">
                       <label
                         for="password"
-                        class="col-sm-2 control-label"
-                      >Password (Leave it empty if you don't to change it)</label>
+                        class="col control-label"
+                      >Password (Leave empty to not change)</label>
 
                       <div class="col-sm-10">
                         <input
@@ -246,10 +247,18 @@ export default {
         type: null,
         bio: "",
         photo: ""
-      })
+      }),
+      profilePhoto: ""
     };
   },
   methods: {
+    getProfilePhoto(photo) {
+      if (photo) {
+        return "img/profile/" + photo;
+      } else {
+        return "img/profile/no-img.jpg";
+      }
+    },
     updateInfo() {
       // we dont put the ID here because any one can see it and change it through the developer tools
       this.$Progress.start();
@@ -260,34 +269,37 @@ export default {
         })
         .catch(() => {
           this.$Progress.fail();
+        })
+        .finally(() => {
+          // location.reload();
         });
     },
     updateProfile(e) {
       // prepare file upload with Base64
-      // console.log("file uploaded");
       let file = e.target.files[0],
         reader = new FileReader();
       if (file["size"] < 2111775) {
         reader.onloadend = file => {
-          // console.log("RESULT", reader.result);
           this.form.photo = reader.result;
+          document.getElementById("profile-user-img").src = reader.result;
         };
         reader.readAsDataURL(file);
       } else {
-        // Swal({
-        //   type: "error",
-        //   title: "oops",
-        //   text: "you are uploading a large file"
-        // });
         Swal.fire("Failed!", "There was something wrong", "warning");
       }
     }
   },
   mounted() {
     console.log("Component mounted.");
+    // this.getProfilePhoto();
   },
   created() {
-    axios.get("api/profile").then(({ data }) => this.form.fill(data));
+    axios
+      .get("api/profile")
+      .then(({ data }) => this.form.fill(data))
+      .finally(() => {
+        this.profilePhoto = this.form.photo;
+      });
   }
 };
 </script>
