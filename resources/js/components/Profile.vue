@@ -161,37 +161,42 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputEmail" class="col-sm-2 control-label">Profile photo</label>
+                      <label for="photo" class="col-sm-2 control-label">Profile photo</label>
 
                       <div class="col-sm-10">
                         <b-form-file
                           placeholder="Choose a file or drop it here..."
+                          id="photo"
                           drop-placeholder="Drop file here..."
                           @change="updateProfile"
                         ></b-form-file>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputExperience" class="col-sm-2 control-label">BIO</label>
+                      <label for="BIO" class="col-sm-2 control-label">BIO</label>
 
                       <div class="col-sm-10">
                         <textarea
                           class="form-control"
-                          id="inputExperience"
-                          placeholder="Experience"
+                          id="BIO"
+                          placeholder="BIO"
                           v-model="form.bio"
                         ></textarea>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+                      <label
+                        for="password"
+                        class="col-sm-2 control-label"
+                      >Password (Leave it empty if you don't to change it)</label>
 
                       <div class="col-sm-10">
                         <input
-                          type="text"
+                          type="password"
                           class="form-control"
-                          id="inputSkills"
-                          placeholder="Skills"
+                          id="password"
+                          placeholder="password"
+                          v-model="form.password"
                         />
                       </div>
                     </div>
@@ -247,21 +252,35 @@ export default {
   methods: {
     updateInfo() {
       // we dont put the ID here because any one can see it and change it through the developer tools
+      this.$Progress.start();
       this.form
         .put("api/profile/")
-        .then(() => {})
-        .catch(() => {});
+        .then(() => {
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
     },
     updateProfile(e) {
       // prepare file upload with Base64
       // console.log("file uploaded");
       let file = e.target.files[0],
         reader = new FileReader();
-      reader.onloadend = file => {
-        // console.log("RESULT", reader.result);
-        this.form.photo = reader.result;
-      };
-      reader.readAsDataURL(file);
+      if (file["size"] < 2111775) {
+        reader.onloadend = file => {
+          // console.log("RESULT", reader.result);
+          this.form.photo = reader.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // Swal({
+        //   type: "error",
+        //   title: "oops",
+        //   text: "you are uploading a large file"
+        // });
+        Swal.fire("Failed!", "There was something wrong", "warning");
+      }
     }
   },
   mounted() {
