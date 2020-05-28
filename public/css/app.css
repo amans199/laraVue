@@ -33275,6 +33275,7 @@ nav.navbar-laravel {
   width: 100px;
   padding: 3px;
   border: 3px solid #d2d6de;
+  height: 100px;
 }
 
 .profile-username {
