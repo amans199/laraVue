@@ -23,7 +23,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return User::latest()->paginate(10);
+        // todo :: remember to create pagination
+        return User::latest()->paginate(20);
     }
 
     /**

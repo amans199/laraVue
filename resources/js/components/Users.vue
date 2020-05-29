@@ -63,6 +63,7 @@
                     <div class="form-group">
                       <b-form-select v-model="form.type" name="type" class="mb-3">
                         <b-form-select-option :value="null">Please select a Type</b-form-select-option>
+                        <b-form-select-option value="admin">Admin</b-form-select-option>
                         <b-form-select-option value="author">Author</b-form-select-option>
                         <b-form-select-option value="contibutor">Contibutor</b-form-select-option>
                         <b-form-select-option value="subscriber">Subscriber</b-form-select-option>

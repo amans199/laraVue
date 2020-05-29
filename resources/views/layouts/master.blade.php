@@ -170,6 +170,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
+                        @can('isAdmin')
                         <li class="nav-item">
                             <router-link to="/developer" class="nav-link  d-flex align-items-center">
                                 <i class="nav-icon fas fa-cogs mr-2 "></i>
@@ -178,6 +179,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
+                        @endcan
                         <li class="nav-item">
                             <!-- <router-link to="#" class="nav-link d-flex align-items-center">
                                 <i class="nav-icon fas fa-power-off mr-2"></i>
