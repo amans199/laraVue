@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('isAdmin');
+        // $this->authorize('isAdmin');
 
         $this->validate($request, [
             'name' => 'required|string|max:191',
@@ -104,7 +104,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->authorize('isAdmin');
+        // $this->authorize('isAdmin');
         $user = User::findOrFail($id);
         $this->validate($request, [
             'name' => 'required|string|max:191',

@@ -6,7 +6,8 @@ require('./customjs')
 
 window.Vue = require('vue');
 // const Vue = window.vue;
-
+import Gate from "./Gate"
+Vue.prototype.$gate = new Gate(window.user)
 // import Vue from 'vue';
 
 // install bootstrap vue 

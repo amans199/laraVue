@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row" v-if="$gate.isAdmin()">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header d-flex align-items-center">
@@ -250,16 +250,18 @@ export default {
         });
     },
     fetchUsers() {
-      axios
-        .get("api/user")
-        .then(reponse => {
-          this.users = reponse.data.data;
-          if (this.users.length) {
-            setTimeout(() => {}, 0);
-          }
-        })
-        .catch(err => console.log(err))
-        .finally(() => (this.loading = false));
+      if (this.$gate.isAdmin) {
+        axios
+          .get("api/user")
+          .then(reponse => {
+            this.users = reponse.data.data;
+            if (this.users.length) {
+              setTimeout(() => {}, 0);
+            }
+          })
+          .catch(err => console.log(err))
+          .finally(() => (this.loading = false));
+      }
     },
     deleteUser(id) {
       Swal.fire({

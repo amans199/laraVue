@@ -145,6 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
+                        @can('isAdmin')
                         <li class="nav-item has-treeview menu-open">
                             <a from="#" class="nav-link d-flex align-items-center">
                                 <i class="nav-icon fas fa-cog mr-2 green"></i>
@@ -163,15 +164,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/profile" class="nav-link  d-flex align-items-center">
-                                <i class="nav-icon fas fa-user mr-2 orange"></i>
-                                <p>
-                                    Profile
-                                </p>
-                            </router-link>
-                        </li>
-                        @can('isAdmin')
-                        <li class="nav-item">
                             <router-link to="/developer" class="nav-link  d-flex align-items-center">
                                 <i class="nav-icon fas fa-cogs mr-2 "></i>
                                 <p>
@@ -181,12 +173,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         @endcan
                         <li class="nav-item">
-                            <!-- <router-link to="#" class="nav-link d-flex align-items-center">
-                                <i class="nav-icon fas fa-power-off mr-2"></i>
+                            <router-link to="/profile" class="nav-link  d-flex align-items-center">
+                                <i class="nav-icon fas fa-user mr-2 orange"></i>
                                 <p>
-                                    Logout
+                                    Profile
                                 </p>
-                            </router-link> -->
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 <i class="nav-icon fas fa-power-off mr-2 red"></i>
@@ -249,7 +243,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
-
+    @auth
+    <script>
+    window.user = @json(auth()->user())
+    </script>
+    @endauth
     <script src="/js/app.js"></script>
 </body>
 
