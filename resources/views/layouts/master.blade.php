@@ -128,7 +128,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img src="./img/social.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }}
+                        <p class="mb-0">{{ Auth::user()->type }}</p>
+                        </a>
                     </div>
                 </div>
 
@@ -234,7 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-                Anything you want
+                Created By <a href="https://www.twitter.com/amans199">Ahmed Mansour</a>
             </div>
             <!-- Default to the left -->
             <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
