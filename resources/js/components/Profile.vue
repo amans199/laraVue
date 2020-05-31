@@ -50,7 +50,7 @@
 
                 <h3 class="profile-username text-center">{{form.name}}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center">{{form.type}}</p>
 
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
