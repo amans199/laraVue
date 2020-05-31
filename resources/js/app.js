@@ -85,6 +85,8 @@ Vue.filter('myDate', (created) => {
 });
 
 
+// add laravel vue pagination
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 // add laravel passport components 
 Vue.component(

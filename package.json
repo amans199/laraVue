@@ -28,6 +28,7 @@
         "admin-lte": "^3.0.0-alpha.2",
         "animejs": "^3.2.0",
         "bootstrap-vue": "^2.13.1",
+        "laravel-vue-pagination": "^2.3.1",
         "moment": "^2.25.3",
         "sweetalert2": "^9.10.13",
         "vee-validate": "^3.3.0",

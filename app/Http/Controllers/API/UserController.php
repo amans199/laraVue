@@ -27,7 +27,7 @@ class UserController extends Controller
         // todo :: remember to create pagination
         // to make the author authanticated to see all users 
         if (\Gate::allows('isAdmin') || \Gate::allows('isAuthor')) {
-            return User::latest()->paginate(20);
+            return User::latest()->paginate(5);
         }
     }
 
