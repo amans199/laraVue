@@ -25,7 +25,10 @@ class UserController extends Controller
     public function index()
     {
         // todo :: remember to create pagination
-        return User::latest()->paginate(20);
+        // to make the author authanticated to see all users 
+        if (\Gate::allows('isAdmin') || \Gate::allows('isAuthor')) {
+            return User::latest()->paginate(20);
+        }
     }
 
     /**
@@ -36,7 +39,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('isAdmin');
+        $this->authorize('isAdmin');
 
         $this->validate($request, [
             'name' => 'required|string|max:191',

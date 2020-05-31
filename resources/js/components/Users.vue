@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div v-if="!$gate.isAdmin()">
+    <div v-if="!$gate.isAdminOrAuthor()">
       <not-found></not-found>
     </div>
-    <div class="row" v-if="$gate.isAdmin()">
+    <div class="row" v-if="$gate.isAdminOrAuthor()">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header d-flex align-items-center">
@@ -253,7 +253,8 @@ export default {
         });
     },
     fetchUsers() {
-      if (this.$gate.isAdmin) {
+      // to make the author authanticated to see all users
+      if (this.$gate.isAdminOrAuthor) {
         axios
           .get("api/user")
           .then(reponse => {
