@@ -24,3 +24,5 @@ Route::apiResources([
 ]);
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
+// todo : search is not working 
+Route::get('findUser', 'API\UserController@search');

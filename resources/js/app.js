@@ -14,7 +14,7 @@ Vue.prototype.$gate = new Gate(window.user)
 import { BootstrapVue } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 
-
+window.Fire = new Vue();
 // install moment js 
 import moment from 'moment';
 
@@ -113,5 +113,14 @@ Vue.component(
 
 const app = new Vue({
   el: '#app',
-  router
+  router,
+  data: {
+    search: ''
+  },
+  methods: {
+    // todo : search is not working 
+    searchit() {
+      Fire.$emit('searching');
+    }
+  }
 });
