@@ -310,8 +310,6 @@ export default {
       });
     }
   },
-  // todo : search is not working
-
   created() {
     this.fetchUsers();
     Fire.$on("searching", () => {
@@ -320,10 +318,10 @@ export default {
         .get("api/findUser?q=" + query)
         .then(data => {
           this.users = data.data;
-          console.log(data);
+          // console.log(data);
         })
         .catch(() => {
-          console.log("errrorr in created users");
+          console.log("errrorr in searching for users");
         });
     });
   },
