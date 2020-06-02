@@ -118,9 +118,9 @@ const app = new Vue({
     search: ''
   },
   methods: {
-    // todo : search is not working 
-    searchit() {
+    // debounce is a function from the library lodash
+    searchit: _.debounce(() => {
       Fire.$emit('searching');
-    }
+    }, 1000)
   }
 });

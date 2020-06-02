@@ -38,14 +38,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- SEARCH FORM -->
             {{-- <form class="form-inline ml-3"> --}}
-                <div class="input-group input-group-sm w-auto">
-                    <input class="form-control form-control-navbar" @keyup.enter="searchit" v-model="search" type="search" placeholder="Search" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit" @click="searchit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+            <div class="input-group input-group-sm w-auto">
+                <input class="form-control form-control-navbar" @keyup="searchit" v-model="search" type="search"
+                    placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit" @click="searchit">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
+            </div>
             {{-- </form> --}}
 
             <!-- Right navbar links -->
@@ -106,7 +107,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i class="fas fa-th-large"></i></a>
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+                            class="fas fa-th-large"></i></a>
                 </li>
             </ul>
         </nav>
@@ -116,7 +118,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="./img/coronavirus.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="./img/coronavirus.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                    style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
@@ -129,14 +132,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}
-                        <p class="mb-0">{{ Auth::user()->type }}</p>
+                            <p class="mb-0">{{ Auth::user()->type }}</p>
                         </a>
                     </div>
                 </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
@@ -239,7 +243,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Created By <a href="https://www.twitter.com/amans199">Ahmed Mansour</a>
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            reserved.
         </footer>
     </div>
     <!-- ./wrapper -->
@@ -247,7 +252,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED SCRIPTS -->
     @auth
     <script>
-    window.user = @json(auth()->user())
+        window.user = @json(auth()->user())
     </script>
     @endauth
     <script src="/js/app.js"></script>
