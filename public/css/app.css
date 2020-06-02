@@ -33356,3 +33356,13 @@ nav.navbar-laravel {
   line-height: 1;
 }
 
+@media print {
+  .nav.nav-tabs li:not(.active) {
+    display: none;
+  }
+}
+
+@page {
+  margin: 0;
+}
+

@@ -115,3 +115,14 @@ nav.navbar-laravel {
     margin: 0;
     line-height: 1;
 }
+
+// for printing
+@media print {
+    .nav.nav-tabs li:not(.active) {
+        display: none;
+    }
+}
+
+@page {
+    margin: 0;
+}
