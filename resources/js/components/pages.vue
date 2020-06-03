@@ -3,9 +3,9 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Example</div>
+          <div class="card-header">Pages</div>
 
-          <div class="card-body">This is just an Example</div>
+          <div class="card-body">Here you can see all pages</div>
         </div>
       </div>
     </div>
