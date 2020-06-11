@@ -1,6 +1,13 @@
 <template>
   <div class="container">
     <div class="justify-content-center">
+      <ul
+        id="breadcrumb199__list"
+        data-splitter=" / "
+        data-margin-items="2px"
+        data-selected-color="#000"
+      ></ul>
+
       <!-- <div class="box box-widget widget-user">
           <div
             class="widget-user-header bg-black bg-primary"
@@ -290,7 +297,7 @@ export default {
     }
   },
   mounted() {
-    console.log("Component mounted.");
+    // console.log("Component mounted.");
     // this.getProfilePhoto();
   },
   created() {

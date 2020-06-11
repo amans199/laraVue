@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv=" x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -20,7 +20,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper" id="app">
-
         <!-- Navbar -->
         <nav class="main-header navbar navbar-laravel navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -256,6 +255,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </script>
     @endauth
     <script src="/js/app.js"></script>
+    {{-- <script src="/js/vendor.js"></script> --}}
+    <script>
+        // let breaddd = require("the-simplest-breadcrumb")
+        // console.log("hhhhh " + breaddd)
+        // getBreadCrumbItems()
+        // console.log(window.breadcrumbMaster)
+ 
+
+    </script>
+    {{-- <script src="/../../../node_modules/the-simplest-breadcrumb/index.js"></script> --}}
+
 </body>
 
 </html>

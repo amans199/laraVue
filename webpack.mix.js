@@ -12,4 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+  .sass('resources/sass/app.scss', 'public/css');
+
+// .extract(['the-simplest-breadcrumb'])
+// mix.copy('node_modules/the-simplest-breadcrumb/index.js', 'public/css/bar.css');

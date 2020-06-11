@@ -2,6 +2,10 @@
 
 require('./bootstrap');
 require('./customjs')
+// import { getBreadCrumbItems } from 'breadcrumbMaster';
+
+// require('the-simplest-breadcrumb')
+import { breadcrumbMaster } from "the-simplest-breadcrumb";
 
 
 window.Vue = require('vue');
@@ -121,6 +125,14 @@ const app = new Vue({
     // debounce is a function from the library lodash
     searchit: _.debounce(() => {
       Fire.$emit('searching');
-    }, 1000)
+    }, 1000),
+
+  },
+  mounted() {
+    breadcrumbMaster()
+  },
+  updated() {
+    breadcrumbMaster()
   }
 });
+
